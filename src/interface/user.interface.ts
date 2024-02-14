@@ -35,4 +35,5 @@ export interface IUserDocument extends IUser, Document {}
 
 export interface IUserWithToken extends IUser, Pick<IUserDocument, "_id"> {
   access_token: string;
+  refresh_token?: string;
 }

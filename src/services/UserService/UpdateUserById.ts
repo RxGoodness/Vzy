@@ -9,7 +9,7 @@ export const UpdateUserById = async (user_id: string, update: IUserUpdate) => {
     new: true,
   })
     .select(
-      "-__v -refresh_token -is_deleted -access_level -is_active -verification_token -verification_token_expires -createdAt -updatedAt -password"
+      "-__v -refresh_token -is_deleted -is_active -createdAt -updatedAt -password"
     )
     .exec()) as IUserDocument;
 

@@ -21,7 +21,7 @@ export const SignToken = async (
     });
 
     refresh_token = sign(payload, REFRESH_TOKEN_SECRET as string, {
-      expiresIn: "1m",
+      expiresIn: "1d",
     });
 
     user = (await UserModel.findByIdAndUpdate(
@@ -39,5 +39,5 @@ export const SignToken = async (
       throw new Error("User Suspended");
     }
 
-  return { access_token, ...user };
+  return { access_token, refresh_token, ...user };
 };
