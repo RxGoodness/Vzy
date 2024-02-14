@@ -7,7 +7,7 @@ import { config } from "../../config/env";
 
 const { APP_URL } = config;
 
-export const SignUp = async (payload: ISignUpPayload, device: IDevice) => {
+export const SignUp = async (payload: ISignUpPayload) => {
   /**
    * @param {object} payload payload for user signup
    * @param {string} payload.username user's unique username

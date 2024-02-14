@@ -16,7 +16,13 @@ export const errorResponse = (
     res_message = "Something went wrong";
   }
 
-  return res.status(statusCode).json(res_message);
+  return res.status(statusCode).json({
+    success: false,
+    message: res_message,
+    warnings,
+    errors,
+  }
+    );
 };
 
 export const successResponse = (

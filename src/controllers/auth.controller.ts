@@ -34,7 +34,7 @@ export const validateRequestBody = (action?: string) => {
         body(["firstname", "lastname"]).optional().isString(),
         body("username", "Selected slug is invalid").matches(
           /^[a-zA-Z_][a-zA-Z0-9_]{2,24}$/
-        ),
+        ).optional(),
       ];
   }
 };
@@ -67,9 +67,8 @@ export const isValidToken = async (req: Request, res: Response) => {
 
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const { signupType } = req.query;
 
-    let { email, password, firstname, lastname, country, dob, device, slug, username } =
+    let { email, password, firstname, lastname, username } =
       req.body;
 
     email = email.toLowerCase();
@@ -91,13 +90,7 @@ export const signUp = async (req: Request, res: Response) => {
         firstname,
         lastname,
         username,
-        country,
-        dob,
-        // ref,
-        slug,
-        signupType: signupType as string,
-      },
-      device
+       }
     );
 
     return successResponse(res, 201, "signed up", response);
