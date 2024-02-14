@@ -90,11 +90,11 @@ export const userExists = async (req: Request, res: Response) => {
 export const refreshToken = async (req: Request, res: Response) => {
   try {
 
-    const { refreshToken } = req.params;
-    if (!refreshToken) return errorResponse(res, 404, "No refresh token found");
+    const { refresh_token } = req.params;
+    if (!refresh_token) return errorResponse(res, 404, "No refresh token found");
 
     verify(
-      refreshToken,
+      refresh_token,
       REFRESH_TOKEN_SECRET as string,
       async (err: any, decoded: any) => {
         if (err) return errorResponse(res, 403, "invalid token");
