@@ -30,7 +30,7 @@ export const isValidToken = async (req: Request, res: Response) => {
     }
 
     verify(token, JWT_SECRET as string, (err: any, decoded: any) => {
-      if (err) return errorResponse(res, 403, "invalid token");
+      if (err) return errorResponse(res, 403, "Token invalid or expired");
       let user = decoded as IUserAuthInfoRequest;
       return successResponse(res, 200, "validity of token", user);
     });
