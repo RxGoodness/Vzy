@@ -3,7 +3,8 @@ import {
   updateUser,
   deleteUser,
   getOneUser,
-  getUserById
+  getUserById,
+  adminUpdateUser
   } from "../controllers/user.controller";
 
 import bodyValidator from "../utils/bodyValidator";
@@ -11,12 +12,21 @@ import { auth, isAdmin, userValidationRules } from "../middlewares";
 
 const router = Router();
 
-router.patch(
+router.put(
   "/",
   auth,
   userValidationRules(),
   bodyValidator,
   updateUser
+);
+
+router.patch(
+  "/:user_id",
+  auth,
+  isAdmin,
+  userValidationRules(),
+  bodyValidator,
+  adminUpdateUser
 );
 
 router.delete("/:user_id", auth, isAdmin, deleteUser);

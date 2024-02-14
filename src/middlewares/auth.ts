@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { IUserAuthInfoRequest } from "../interface";
 import { verify } from "jsonwebtoken";
-import { errorResponse, successResponse } from "../utils/responseHandler";
+import { errorResponse } from "../utils/responseHandler";
 import { config } from "../config/env";
 
 const { JWT_SECRET } = config;

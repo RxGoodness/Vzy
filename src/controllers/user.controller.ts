@@ -26,12 +26,36 @@ export const getOneUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { user } = req;
-    // const { user_id } = req.params;
     let {
       firstname,
       lastname,
-      username,
       email,
+      } = req.body;
+
+    if (email) {
+      email = email.toLowerCase();
+    }
+
+    const update = {
+      firstname,
+      lastname,
+      email,
+    };
+    const response = await UpdateUserById(user._id, update);
+
+    return successResponse(res, 200, "user updated", response);
+  } catch (error: any) {
+    return errorResponse(res, 500, error.message);
+  }
+};
+
+
+export const adminUpdateUser = async (req: Request, res: Response) => {
+  try {
+    const { user_id } = req.params;
+    let {
+      email,
+      username,
       access_level,
       } = req.body;
 
@@ -39,19 +63,12 @@ export const updateUser = async (req: Request, res: Response) => {
       email = email.toLowerCase();
     }
 
-    // only admin can make another user an admin
-    if (access_level && user.access_level < 3) {
-      return errorResponse(res, 401, "Unauthorized, only admin can make another user an admin");
-    }
-
     const update = {
-      firstname,
-      lastname,
-      username,
       email,
+      username,
       access_level,
     };
-    const response = await UpdateUserById(user._id, update);
+    const response = await UpdateUserById(user_id, update);
 
     return successResponse(res, 200, "user updated", response);
   } catch (error: any) {
