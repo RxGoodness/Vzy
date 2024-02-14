@@ -1,5 +1,4 @@
 import { hash } from "bcryptjs";
-import { nanoid } from "nanoid";
 import UserModel from "../../models/user";
 import { SignToken } from "./SignToken";
 import { ISignUpPayload, IDevice } from "../../interface";

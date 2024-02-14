@@ -17,8 +17,6 @@ export interface IUser {
   is_active?: boolean;
   is_verified?: boolean;
   is_deleted?: boolean;
-  verification_token?: string;
-  token_validity?: Date;
   last_login?: Date;
   is_user_suspended: boolean;
   status?: EUserStatus;

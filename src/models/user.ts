@@ -18,8 +18,6 @@ const userSchemaFields: Record<keyof IUser, any> = {
   is_active: { type: Boolean, default: true },
   is_verified: { type: Boolean, default: false },
   is_deleted: { type: Boolean, default: false },
-  verification_token: { type: String },
-  token_validity: { type: Date },
   last_login: { type: Date },
   is_user_suspended: { type: Boolean, default: false },
   status: {

@@ -6,7 +6,7 @@ export const CreateCustomer = async (
 ) => {
   const customer = await Stripe.customers.create({
     email,
-    description: "Mainstack Customer",
+    description: "Vzy Customer",
     source,
   });
 

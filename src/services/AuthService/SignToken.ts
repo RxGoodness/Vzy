@@ -17,11 +17,11 @@ export const SignToken = async (
   let user: IUserDocument;
 
     access_token = sign(payload, JWT_SECRET as string, {
-      expiresIn: "14d",
+      expiresIn: "1m",
     });
 
     refresh_token = sign(payload, REFRESH_TOKEN_SECRET as string, {
-      expiresIn: "14d",
+      expiresIn: "1m",
     });
 
     user = (await UserModel.findByIdAndUpdate(
@@ -30,7 +30,7 @@ export const SignToken = async (
       { new: true }
     )
       .select(
-        "firstname lastname username email country categories picture is_email_verified has_basic_info plan trial access_level is_mfa_enabled is_user_suspended trial stripe_billing_id kyc_verified has_created_invoice signup_type verification_badge"
+        "firstname lastname username email  is_email_verified  access_level is_user_suspended"
       )
       .lean()
       .exec()) as IUserDocument;
