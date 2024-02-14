@@ -3,20 +3,12 @@ import {
   login,
   signUp,
   validateRequestBody,
-  userExists,
-  changePassword,
-  forgotPassword,
-  resetPassword,
-  isValidToken,
-  emailAuth,
+  userExists
 } from "../controllers/auth.controller";
 import { auth } from "../middlewares/auth";
 import validateBody from "../utils/bodyValidator";
 
 const router = Router();
-
-
-router.get("/is-valid-token", isValidToken);
 
 router.post("/signup",
 validateRequestBody(),
@@ -30,29 +22,6 @@ router.post(
   login
 );
 
-router.put(
-  "/change-password",
-  auth,
-  validateRequestBody("change_password"),
-  validateBody,
-  changePassword
-);
-
-
-router.post(
-  "/forgot-password",
-  validateRequestBody("forgot_password"),
-  validateBody,
-  forgotPassword
-);
-
-router.post(
-  "/reset-password",
-  validateRequestBody("reset_password"),
-  validateBody,
-  resetPassword
-);
-
 
 router.get(
   "/user-exists",
@@ -60,13 +29,5 @@ router.get(
   validateBody,
   userExists
 );
-
-router.post(
-  "/email-auth",
-  validateRequestBody("is_email"),
-  validateBody,
-  emailAuth
-);
-
 
 export default router;
