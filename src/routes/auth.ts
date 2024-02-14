@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   login,
   signUp,
-  userExists
+  refreshToken
 } from "../controllers/auth.controller";
 import validateBody from "../utils/bodyValidator";
 import { validateRequestBody } from "../middlewares";
@@ -24,7 +24,7 @@ router.post(
 
 router.get(
   "/:refresh_token",
-  userExists
+  refreshToken
 );
 
 export default router;
