@@ -6,7 +6,6 @@ export const GetUserById = async (user_id: string) => {
     .select(
       "-__v -refresh_token -is_deleted -access_level -is_active -verification_token -verification_token_expires -createdAt -updatedAt -password"
     )
-    .populate("wallet")
     .exec()) as IUserDocument;
 
   return user;
