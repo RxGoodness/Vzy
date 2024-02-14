@@ -16,7 +16,7 @@ router.patch(
   "/:user_id",
   auth,
   isAdmin,
-  userValidationRules(),
+  userValidationRules("admin_update_user"),
   bodyValidator,
   adminUpdateUser
 );
