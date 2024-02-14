@@ -23,9 +23,7 @@ router.post(
 
 
 router.get(
-  "/user-exists",
-  validateRequestBody("user_exists"),
-  validateBody,
+  "/:refresh_token",
   userExists
 );
 

@@ -13,32 +13,6 @@ import { IUserAuthInfoRequest } from "../interface";
 
 const { JWT_SECRET, REFRESH_TOKEN_SECRET } = config;
 
-export const isValidToken = async (req: Request, res: Response) => {
-  try {
-    // Extract the token from the Authorization header
-    const authorizationHeader = req.headers["authorization"];
-
-    if (!authorizationHeader) {
-      return errorResponse(res, 403, "request not authenticated");
-    }
-
-    // Check if the Authorization header starts with "Bearer "
-    const [bearer, token] = authorizationHeader.split(" ");
-
-    if (bearer !== "Bearer" || !token) {
-      return errorResponse(res, 403, "invalid token format");
-    }
-
-    verify(token, JWT_SECRET as string, (err: any, decoded: any) => {
-      if (err) return errorResponse(res, 403, "Token invalid or expired");
-      let user = decoded as IUserAuthInfoRequest;
-      return successResponse(res, 200, "validity of token", user);
-    });
-  } catch (error: any) {
-    return errorResponse(res, 500, error.message);
-  }
-};
-
 export const signUp = async (req: Request, res: Response) => {
   try {
 
