@@ -2,11 +2,10 @@ import { Router } from "express";
 import {
   login,
   signUp,
-  validateRequestBody,
   userExists
 } from "../controllers/auth.controller";
-import { auth } from "../middlewares/auth";
 import validateBody from "../utils/bodyValidator";
+import { validateRequestBody } from "../middlewares";
 
 const router = Router();
 

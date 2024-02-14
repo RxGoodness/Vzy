@@ -1,7 +1,6 @@
 export * from "./user.interface"
 export * from "./auth.interface"
 export * from "./token.interface"
-export * from "./filter.interface"
 export * from "./transaction.interface"
 export * from "./custom.object.interface"
 export * from "./user.request.interface"

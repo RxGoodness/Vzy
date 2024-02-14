@@ -1,14 +1,13 @@
 import { Router } from "express";
 import {
   updateUser,
-  userValidationRules,
   deleteUser,
   getOneUser,
   getUserById
   } from "../controllers/user.controller";
 
 import bodyValidator from "../utils/bodyValidator";
-import { auth, isAdmin,  } from "../middlewares/auth";
+import { auth, isAdmin, userValidationRules } from "../middlewares";
 
 const router = Router();
 

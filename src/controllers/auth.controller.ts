@@ -1,9 +1,9 @@
-import { body, query } from "express-validator";
 import {
   Login,
+  SignToken,
   SignUp,
 } from "../services/AuthService"
-import { GetUserById, GetUserByUsername, UserExists } from "../services/UserService";
+import { GetUserByUsername, UserExists } from "../services/UserService";
 import { errorResponse, successResponse } from "../utils/responseHandler";
 import { Request, Response } from "express";
 import { config } from "../config/env";
@@ -11,31 +11,7 @@ import { IUserWithToken } from "../interface";
 import { verify } from "jsonwebtoken";
 import { IUserAuthInfoRequest } from "../interface";
 
-const { JWT_SECRET } = config;
-
-export const validateRequestBody = (action?: string) => {
-  switch (action) {
-    case "local_login":
-      return [
-        body("email").isEmail(),
-        body("password", "invalid credentials").exists({
-          checkFalsy: true,
-          checkNull: true,
-        }),
-      ];
-    case "user_exists":
-      return query("email").isEmail();
-    default:
-      return [
-        body("email").isEmail(),
-        body("password").isString(),
-        body(["firstname", "lastname"]).optional().isString(),
-        body("username", "Selected slug is invalid").matches(
-          /^[a-zA-Z_][a-zA-Z0-9_]{2,24}$/
-        ).optional(),
-      ];
-  }
-};
+const { JWT_SECRET, REFRESH_TOKEN_SECRET } = config;
 
 export const isValidToken = async (req: Request, res: Response) => {
   try {
@@ -132,6 +108,28 @@ export const userExists = async (req: Request, res: Response) => {
     const response = await UserExists({ email: email || "" });
 
     return successResponse(res, 200, "user's existence details", response);
+  } catch (error: any) {
+    return errorResponse(res, 500, error.message);
+  }
+};
+
+export const refreshToken = async (req: Request, res: Response) => {
+  try {
+
+    const { refreshToken } = req.params;
+    if (!refreshToken) return errorResponse(res, 404, "No refresh token found");
+
+    verify(
+      refreshToken,
+      REFRESH_TOKEN_SECRET as string,
+      async (err: any, decoded: any) => {
+        if (err) return errorResponse(res, 403, "invalid token");
+        let user = decoded as IUserAuthInfoRequest;
+        const { _id, access_level } = user
+        const response = await SignToken({_id, access_level });
+        return successResponse(res, 200, "refresh token", response);
+      }
+    );
   } catch (error: any) {
     return errorResponse(res, 500, error.message);
   }
