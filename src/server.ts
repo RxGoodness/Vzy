@@ -1,10 +1,8 @@
 
-import { Server, createServer } from "http";
+import { createServer } from "http";
 import app from "./app";
 import { config } from "./config/env";
 import { connectDB } from "./config/database";
-// import { connectRedis } from "./utils/cacheManager";
-import cors from "cors";
 
 const server = createServer(app);
 

@@ -9,6 +9,7 @@ export const stripeValidationRules = (method: string) => {
     case "charge":
       return [
         body("source").isString(),
+        body("currency").isString(),
         body("amount").isNumeric(),
         body("metadata").isObject(),
       ];
