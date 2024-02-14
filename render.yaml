@@ -1,0 +1,16 @@
+services:
+  # A Node.js web service
+  - type: web
+    name: vzy-api
+    env: node
+    repo: https://bitbucket.org/luxe-workspace/vzy-api
+    region: oregon
+    branch: feat/auth
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: ~20.11.0
+      - key: NODE_ENV
+        value: development
