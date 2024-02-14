@@ -22,7 +22,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
   }
 
   verify(token, JWT_SECRET as string, (err: any, decoded: any) => {
-    if (err) return errorResponse(res, 403, "invalid token");
+    if (err) return errorResponse(res, 403, "Token invalid or expired");
 
     req.user = decoded as IUserAuthInfoRequest;
     return next();
