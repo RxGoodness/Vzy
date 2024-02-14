@@ -13,7 +13,7 @@ export interface IUser {
   lastname?: string;
   username: string;
   slug?: string;
-  access_level?: number;
+  access_level: number;
   is_active?: boolean;
   is_verified?: boolean;
   is_deleted?: boolean;

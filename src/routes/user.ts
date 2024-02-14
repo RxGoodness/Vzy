@@ -16,7 +16,7 @@ const router = Router();
 router.get("/user/auth", get_user_with_token);
 
 router.patch(
-  "/:user_id",
+  "/",
   auth,
   userValidationRules(),
   bodyValidator,

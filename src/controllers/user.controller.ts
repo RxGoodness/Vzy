@@ -6,7 +6,6 @@ const { JWT_SECRET } = config;
 import { body, query } from "express-validator";
 import {
   UpdateUserById,
-  GetAllUsers,
   DeleteUser,
   GetUserById,
 } from "../services/UserService";
@@ -101,35 +100,22 @@ export const getOneUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { user } = req;
-    const { user_id } = req.params;
+    // const { user_id } = req.params;
     let {
       firstname,
       lastname,
       username,
       email,
-      country,
-      categories,
       access_level,
-      has_basic_info,
-      applicable_titles,
-      dob,
-      feed,
-      is_twofa_enable,
-      kyc_review_banner_dismissed,
-    } = req.body;
+      } = req.body;
 
     if (email) {
       email = email.toLowerCase();
     }
 
-    // only user himself or admin can update details
-    if (user._id !== user_id && user.access_level < 2) {
-      return errorResponse(res, 401, "Unauthorized");
-    }
-
-    // only super admin can make another user and admin
+    // only admin can make another user an admin
     if (access_level && user.access_level < 3) {
-      return errorResponse(res, 401, "Unauthorized");
+      return errorResponse(res, 401, "Unauthorized, only admin can make another user an admin");
     }
 
     const update = {
@@ -137,17 +123,9 @@ export const updateUser = async (req: Request, res: Response) => {
       lastname,
       username,
       email,
-      country,
-      categories,
       access_level,
-      has_basic_info,
-      applicable_titles,
-      dob,
-      feed,
-      is_twofa_enable,
-      kyc_review_banner_dismissed,
     };
-    const response = await UpdateUserById(user_id, update);
+    const response = await UpdateUserById(user._id, update);
 
     return successResponse(res, 200, "user updated", response);
   } catch (error: any) {
