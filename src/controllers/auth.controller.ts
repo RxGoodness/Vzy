@@ -2,10 +2,6 @@ import { body, query } from "express-validator";
 import {
   Login,
   SignUp,
-  ChangePassword,
-  ForgotPassword,
-  ResetPassword,
-  EmailAuth,
 } from "../services/AuthService"
 import { GetUserById, GetUserByUsername, UserExists } from "../services/UserService";
 import { errorResponse, successResponse } from "../utils/responseHandler";
@@ -31,27 +27,11 @@ export const validateRequestBody = (action?: string) => {
       ];
     case "user_exists":
       return query("email").isEmail();
-    case "change_password":
-      return [
-        body(["old_password", "new_password", "confirm_password"]).isString(),
-      ];
-    case "verify_email":
-      return query("tkn", "Invalid token")
-        .isString()
-        .isLength({ min: 6, max: 6 });
-    case "send_verification":
-      return body("email").isEmail();
-    case "forgot_password":
-      return body("email").isEmail();
-    case "reset_password":
-      return query("tkn", "Invalid token")
-        .isString()
-        .isLength({ min: 6, max: 6 });
     default:
       return [
         body("email").isEmail(),
         body("password").isString(),
-        body(["firstname", "lastname", "country"]).optional().isString(),
+        body(["firstname", "lastname"]).optional().isString(),
         body("username", "Selected slug is invalid").matches(
           /^[a-zA-Z_][a-zA-Z0-9_]{2,24}$/
         ),

@@ -19,24 +19,14 @@ export const SignUp = async (payload: ISignUpPayload, device: IDevice) => {
     firstname,
     lastname,
     username,
-    country,
-    dob,
-    ref,
-    slug,
-    signupType,
   } = payload;
 
   const hashedPassword = await hash(password, 10);
 
-  const verification_token = nanoid(6);
-  const verification_link = `${APP_URL}/verification-page?tkn=${verification_token}`;
-
+ 
   let has_basic_info;
 
-  if (firstname && lastname && country) {
-    has_basic_info = true;
-  }
-
+ 
   const user: any = await UserModel.create({
     email,
     password: hashedPassword,
@@ -44,15 +34,8 @@ export const SignUp = async (payload: ISignUpPayload, device: IDevice) => {
     lastname,
     username,
     has_basic_info,
-    country,
-    device,
-    dob,
-    referred_by: ref,
-    verification_token,
-    signup_type: signupType,
   });
   
-
   const userWithToken = await SignToken({
     _id: user._id,
     access_level: user.access_level,
