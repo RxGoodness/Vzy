@@ -1,19 +1,16 @@
 import { Router } from "express";
 import {
-  get_user_with_token,
   updateUser,
   userValidationRules,
   deleteUser,
   getOneUser,
+  getUserById
   } from "../controllers/user.controller";
 
 import bodyValidator from "../utils/bodyValidator";
 import { auth, isAdmin,  } from "../middlewares/auth";
 
 const router = Router();
-
-// router.get("/user", auth, getUser);
-router.get("/user/auth", get_user_with_token);
 
 router.patch(
   "/",
@@ -23,7 +20,9 @@ router.patch(
   updateUser
 );
 
-router.get("/:user_id", auth, getOneUser);
+router.delete("/:user_id", auth, isAdmin, deleteUser);
+
+router.get("/", auth, getUserById);
 
 router.get("/services/:user_id", getOneUser);
 

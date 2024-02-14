@@ -15,8 +15,6 @@ const { JWT_SECRET } = config;
 
 export const validateRequestBody = (action?: string) => {
   switch (action) {
-    case "is_valid_slug":
-      return query("username").isString();
     case "local_login":
       return [
         body("email").isEmail(),
@@ -94,25 +92,6 @@ export const signUp = async (req: Request, res: Response) => {
     );
 
     return successResponse(res, 201, "signed up", response);
-  } catch (error: any) {
-    return errorResponse(res, 500, error.message);
-  }
-};
-
-export const isValidSlug = async (req: Request, res: Response) => {
-  try {
-    let { username } = req.query;
-    username = (username as string).toLowerCase();
-
-    const regex = new RegExp(/^[a-zA-Z_][a-zA-Z0-9_]{2,24}$/);
-
-    const response = await GetUserByUsername(username as string);
-
-    if (response) {
-      return successResponse(res, 200, "validity of slug", false);
-    }
-
-    return successResponse(res, 200, "validity of slug", true);
   } catch (error: any) {
     return errorResponse(res, 500, error.message);
   }
