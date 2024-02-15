@@ -9,7 +9,8 @@ This template contains a boilerplate for documentation that you can quickly cust
 
 Task 1: Build API Endpoints This task involves developing API endpoints to interact with MongoDB Atlas, facilitating user registration, authentication, and user record updates. Register and Authenticate Users.
 The code has been pushed to github https://github.com/RxGoodness/Vzy.git
-and deployed on on render https://vzy-assessment.onrender.com
+and deployed on on render https://vzy-assessment.onrender.com/api/v1
+
 ENDPOINTS
 POST /auth/signup: Register new users with the system. Requires providing necessary user details like username, email,password (compulsory), firstname and lastname (optional). An access_token (which expires in 1min is generated) and a refresh token which can be used to generate another access_token. The refresh token have longer expiration(1 day)
 POST /auth/login: Authenticate existing users by providing their credentials (email and password). Upon successful authentication, an access token valid for one minute is generated and returned alongside regresh token(as in signup). This access token must be included as an authentication header in subsequent requests.
